@@ -1,0 +1,41 @@
+---
+title: "Multiple Report Generation"
+author: "Tasbiul Islam Nibir"
+format: html
+editor: visual
+execute: 
+  echo: false
+  warning: false
+  message: false
+params:
+  country: Afghanistan
+---
+
+## Library
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+library("gapminder")
+library("dplyr")
+library("ggplot2")
+```
+
+```{r}
+life_expectancy <- 
+  gapminder |>
+  select(country, year, lifeExp) |>
+  filter(country == params$country)
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
+
+## Life Expectancy in `r params$country`
+
+```{r}
+ggplot(data= life_expectancy,
+       mapping = aes(x = year, y = lifeExp))+
+  geom_line()+
+  theme_minimal()
+```
